@@ -92,8 +92,8 @@ NXT ADVISORY:               20080923/0730Z
                                     <gml:patches>
                                         <gml:PolygonPatch>
                                             <gml:exterior>
-                                                <gml:LinearRing>
-                                                    <gml:posList>54.00 159.50 54.00 161.00 53.00 159.75 54.00 159.50</gml:posList>
+                                                <gml:LinearRing srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::3857">
+                                                    <gml:posList srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::4326">54.00 159.50 54.00 161.00 53.00 159.75 54.00 159.50</gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
                                         </gml:PolygonPatch>
