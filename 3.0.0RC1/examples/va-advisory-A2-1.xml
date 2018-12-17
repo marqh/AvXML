@@ -90,9 +90,9 @@ NXT ADVISORY:               20080923/0730Z
                             <aixm:horizontalProjection>
                                 <aixm:Surface gml:id="uuid.c81a85cc-61d9-4250-b9bb-fe4e9dcd3f29">
                                     <gml:patches>
-                                        <gml:PolygonPatch>
+                                        <gml:PolygonPatch srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::3857">
                                             <gml:exterior>
-                                                <gml:LinearRing srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::3857">
+                                                <gml:LinearRing>
                                                     <gml:posList srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::4326">54.00 159.50 54.00 161.00 53.00 159.75 54.00 159.50</gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
