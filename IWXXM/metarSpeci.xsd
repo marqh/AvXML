@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema elementFormDefault="qualified" targetNamespace="http://icao.int/iwxxm/2.0RC1" version="2.0RC1" xmlns:iwxxm="http://icao.int/iwxxm/2.0RC1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:om="http://www.opengis.net/om/2.0" xmlns="http://www.w3.org/2001/XMLSchema">
-	<include schemaLocation="measures.xsd"></include>
+<schema elementFormDefault="qualified" targetNamespace="http://icao.int/iwxxm/2.1" version="2.1" xmlns:iwxxm="http://icao.int/iwxxm/2.1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:om="http://www.opengis.net/om/2.0" xmlns="http://www.w3.org/2001/XMLSchema">
 	<include schemaLocation="common.xsd"></include>
 	<import namespace="http://www.opengis.net/om/2.0" schemaLocation="http://schemas.opengis.net/om/2.0/observation.xsd"></import>
 	<import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"></import>
@@ -9,34 +8,42 @@
 
 METAR and SPECI reports include identical information but are issued for different purposes.
 
-METAR reports are routine observations made at an aerodrome throughout the day.  METAR observations are made (and distributed) at intervals of one hour or, if so determined by regional air navigation agreement, at intervals of one half-hour. 
+METAR reports are routine observations made at an aerodrome throughout the day.  METAR observations are made (and distributed) at intervals of one hour or, if so determined by regional air navigation agreement, at intervals of one half-hour.
 
-SPECI reports are special (i.e., non-routine) observation made at an aerodrome as needed. SPECI observations are made (and distributed) in accordance with criteria established by the meteorological authority, in consultation with the appropriate ATS authority, operators and others concerned. 
+SPECI reports are special (i.e., non-routine) observation made at an aerodrome as needed. SPECI observations are made (and distributed) in accordance with criteria established by the meteorological authority, in consultation with the appropriate ATS authority, operators and others concerned.
 
 References to WMO and ICAO Technical Regulations within this XML schema shall have no formal status and are for information purposes only. Where there are differences between the Technical Regulations and the schema, the Technical Regulations shall take precedence. Technical Regulations may impose requirements that are not described in this schema.</documentation>
 	</annotation>
-	<element name="MeteorologicalAerodromeObservationReport" type="iwxxm:MeteorologicalAerodromeObservationReportType" substitutionGroup="gml:AbstractFeature">
+	<element name="MeteorologicalAerodromeObservationReport" type="iwxxm:MeteorologicalAerodromeObservationReportType" substitutionGroup="iwxxm:Report" abstract="true">
 		<annotation>
 			<documentation>A report of observed and trend forecast weather phenomenon from the surface near an aerodrome.  This is a shared superclass for METAR and SPECI reports, which have identical reported information.</documentation>
 		</annotation>
 	</element>
-	<complexType name="MeteorologicalAerodromeObservationReportType">
+	<complexType name="MeteorologicalAerodromeObservationReportType" abstract="true">
 		<complexContent>
-			<extension base="gml:AbstractFeatureType">
+			<extension base="iwxxm:ReportType">
 				<sequence>
 					<element name="observation" type="om:OM_ObservationPropertyType">
 						<annotation>
 							<documentation>The observation which resulted in the current meteorological conditions at an aerodrome</documentation>
 						</annotation>
 					</element>
-					<element name="trendForecast" type="om:OM_ObservationPropertyType" minOccurs="0" maxOccurs="3">
+					<element nillable="true" name="trendForecast" type="om:OM_ObservationPropertyType" minOccurs="0" maxOccurs="3">
 						<annotation>
 							<documentation>The process that results in a trend forecast.  When no change is expected to occur during a forecast period ("NOSIG") this is indicated by a single missing trend forecast with a nil reason of noSignificantChange</documentation>
 						</annotation>
 					</element>
 				</sequence>
-				<attribute use="required" name="automatedStation" type="boolean"></attribute>
-				<attribute use="required" name="status" type="iwxxm:MeteorologicalAerodromeReportStatusType"></attribute>
+				<attribute use="required" name="status" type="iwxxm:MeteorologicalAerodromeReportStatusType">
+					<annotation>
+						<documentation>The report status (e.g., normal, corrected)</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="automatedStation" type="boolean">
+					<annotation>
+						<documentation>When true, this report was reported by an automated station.</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -49,7 +56,7 @@ References to WMO and ICAO Technical Regulations within this XML schema shall ha
 	</complexType>
 	<element name="SPECI" type="iwxxm:SPECIType" substitutionGroup="iwxxm:MeteorologicalAerodromeObservationReport">
 		<annotation>
-			<documentation>A special (i.e., non-routine) observation made at an aerodrome as needed. SPECI observations are made (and distributed) in accordance with criteria established by the meteorological authority, in consultation with the appropriate ATS authority, operators and others concerned. 
+			<documentation>A special (i.e., non-routine) observation made at an aerodrome as needed. SPECI observations are made (and distributed) in accordance with criteria established by the meteorological authority, in consultation with the appropriate ATS authority, operators and others concerned.
 
 The information contained in METAR and SPECI is identical. SPECI is issued when conditions merit a non-routine report on conditions at an aerodrome.
 
@@ -63,7 +70,13 @@ See ICAO Annex 3 / WMO No. 49-2 Table A3-2</documentation>
 	<complexType name="SPECIType">
 		<complexContent>
 			<extension base="iwxxm:MeteorologicalAerodromeObservationReportType">
-				<sequence></sequence>
+				<sequence>
+					<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Extension block for optional and/or additional parameters for element SPECI</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -76,7 +89,7 @@ See ICAO Annex 3 / WMO No. 49-2 Table A3-2</documentation>
 	</complexType>
 	<element name="METAR" type="iwxxm:METARType" substitutionGroup="iwxxm:MeteorologicalAerodromeObservationReport">
 		<annotation>
-			<documentation>A routine observation made at an aerodrome throughout the day.  METAR observations are made (and distributed) at intervals of one hour or, if so determined by regional air navigation agreement, at intervals of one half-hour. 
+			<documentation>A routine observation made at an aerodrome throughout the day.  METAR observations are made (and distributed) at intervals of one hour or, if so determined by regional air navigation agreement, at intervals of one half-hour.
 
 The information contained in METAR and SPECI is identical. SPECI is issued when conditions merit a non-routine report on conditions at an aerodrome.
 
@@ -88,7 +101,13 @@ See ICAO Annex 3 / WMO No. 49-2 Table A3-2</documentation>
 	<complexType name="METARType">
 		<complexContent>
 			<extension base="iwxxm:MeteorologicalAerodromeObservationReportType">
-				<sequence></sequence>
+				<sequence>
+					<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Extension block for optional and/or additional parameters for element METAR</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -124,17 +143,32 @@ Prevailing horizontal visibility shall be reported in meters ("m").</documentati
 						<annotation>
 							<documentation>The reported relational operator for the prevailing horizontal visibility.  When reported, this operator is reported in conjunction with prevailing visibility.
 
-To report a prevailing visibility of at least 10000 meters, prevailing visibility is reported as 10000 meters and the operator is reported as "above".  
+To report a prevailing visibility of at least 10000 meters, prevailing visibility is reported as 10000 meters and the operator is reported as "above".
 
 When no operator is reported, prevailing visibility represents an exact value with identical semantics to other measured quantities</documentation>
 						</annotation>
 					</element>
 					<element name="surfaceWind" type="iwxxm:AerodromeSurfaceWindTrendForecastPropertyType" minOccurs="0" maxOccurs="1"></element>
-					<element name="forecastWeather" type="iwxxm:AerodromeForecastWeatherType" minOccurs="0" maxOccurs="3"></element>
-					<element name="cloud" type="iwxxm:AerodromeCloudForecastPropertyType" minOccurs="0" maxOccurs="1"></element>
+					<element nillable="true" name="forecastWeather" type="iwxxm:AerodromeForecastWeatherType" minOccurs="0" maxOccurs="3"></element>
+					<element nillable="true" name="cloud" type="iwxxm:AerodromeCloudForecastPropertyType" minOccurs="0" maxOccurs="1"></element>
+					<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Extension block for optional and/or additional parameters for element MeteorologicalAerodromeTrendForecastRecord</documentation>
+						</annotation>
+					</element>
 				</sequence>
-				<attribute use="required" name="changeIndicator" type="iwxxm:ForecastChangeIndicatorType"></attribute>
-				<attribute use="required" name="cloudAndVisibilityOK" type="boolean"></attribute>
+				<attribute use="required" name="changeIndicator" type="iwxxm:ForecastChangeIndicatorType">
+					<annotation>
+						<documentation>The change indicator for this trend forecast - becoming, temporary conditions, or no significant change</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="cloudAndVisibilityOK" type="boolean">
+					<annotation>
+						<documentation>When true, indicates that the observed cloud ceiling, horizontal visibility, and weather conditions are of no operational significance.  See ICAO Annex 3 / WMO No. 49-2 Section 2.2. Also known as "CAVOK"
+
+When CAVOK conditions are observed, no other information on visibility, runway visual range, present weather, cloud amount, or cloud type is reported</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -147,7 +181,7 @@ When no operator is reported, prevailing visibility represents an exact value wi
 	</complexType>
 	<element name="MeteorologicalAerodromeObservationRecord" type="iwxxm:MeteorologicalAerodromeObservationRecordType" substitutionGroup="gml:AbstractGML">
 		<annotation>
-			<documentation>A specialized Record type containing meteorological conditions observed at an aerodrome.  
+			<documentation>A specialized Record type containing meteorological conditions observed at an aerodrome.
 
 When no clouds of operational significance or no weather of operational significance is observed, the NothingOfOperationalSignificance nilReason is used for the cloud or presentWeather association. When no clouds were detected by the automatic observing system, the NotDetectedByAutoSystem nilReason is used for the cloud association.</documentation>
 		</annotation>
@@ -191,14 +225,33 @@ Measured altimeter setting shall be given in hectoPascals ("hPa").</documentatio
 					<element name="surfaceWind" type="iwxxm:AerodromeSurfaceWindPropertyType"></element>
 					<element name="visibility" type="iwxxm:AerodromeHorizontalVisibilityPropertyType" minOccurs="0" maxOccurs="1"></element>
 					<element name="rvr" type="iwxxm:AerodromeRunwayVisualRangePropertyType" minOccurs="0" maxOccurs="4"></element>
-					<element name="presentWeather" type="iwxxm:AerodromePresentWeatherType" minOccurs="0" maxOccurs="3"></element>
-					<element name="cloud" type="iwxxm:AerodromeObservedCloudsPropertyType" minOccurs="0" maxOccurs="1"></element>
+					<element nillable="true" name="presentWeather" type="iwxxm:AerodromePresentWeatherType" minOccurs="0" maxOccurs="3"></element>
+					<element nillable="true" name="cloud" minOccurs="0" maxOccurs="1">
+						<complexType>
+							<complexContent>
+								<extension base="iwxxm:AerodromeObservedCloudsPropertyType">
+									<attribute name="nilReason" type="gml:NilReasonType"/>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
 					<element name="recentWeather" type="iwxxm:AerodromeRecentWeatherType" minOccurs="0" maxOccurs="3"></element>
 					<element name="windShear" type="iwxxm:AerodromeWindShearPropertyType" minOccurs="0" maxOccurs="1"></element>
 					<element name="seaState" type="iwxxm:AerodromeSeaStatePropertyType" minOccurs="0" maxOccurs="1"></element>
 					<element name="runwayState" type="iwxxm:AerodromeRunwayStatePropertyType" minOccurs="0" maxOccurs="unbounded"></element>
+					<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Extension block for optional and/or additional parameters for element MeteorologicalAerodromeObservationRecord</documentation>
+						</annotation>
+					</element>
 				</sequence>
-				<attribute use="required" name="cloudAndVisibilityOK" type="boolean"></attribute>
+				<attribute use="required" name="cloudAndVisibilityOK" type="boolean">
+					<annotation>
+						<documentation>When true, indicates that the observed cloud ceiling, horizontal visibility, and weather conditions are of no operational significance.  See ICAO Annex 3 / WMO No. 49-2 Section 2.2. Also known as "CAVOK"
+
+When CAVOK conditions are observed, no other information on visibility, runway visual range, present weather, cloud amount, or cloud type is reported</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -237,7 +290,7 @@ WMO reporting procedures require that contamination is reported in the following
 - less than 10%;
 - between 11% and 25%;
 - between 26% and 50%; and
-- more than 50%. 
+- more than 50%.
 
 See WMO No. 306:
 - WMO Code table 0519
@@ -247,7 +300,7 @@ See WMO No. 306:
 					</appinfo>
 				</annotation>
 			</element>
-			<element name="depthOfDeposit" type="iwxxm:DistanceWithNilReasonType" minOccurs="0" maxOccurs="1">
+			<element nillable="true" name="depthOfDeposit" type="iwxxm:DistanceWithNilReasonType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation>Depth of deposit on the surface of the runway.
 
@@ -259,24 +312,43 @@ See WMO No. 306 WMO Code table 1079.</documentation>
 					</appinfo>
 				</annotation>
 			</element>
-			<element name="estimatedSurfaceFriction" type="gml:ScaleType" minOccurs="0" maxOccurs="1">
+			<element name="estimatedSurfaceFrictionOrBrakingAction" type="iwxxm:RunwayFrictionCoefficientType" minOccurs="0" maxOccurs="1">
 				<annotation>
-					<documentation>The estimated surface friction for the affected runway.  Between 0.0 and 0.9.  
-
-When braking conditions are not reported and/or the runway is not operational estimatedSurfaceFriction will not be reported.
+					<documentation>The estimated surface friction or braking action for the affected runway.  When braking conditions are not reported and/or the runway is not operational estimatedSurfaceFrictionOrBrakingAction will not be reported.
 
 WMO 306:
 Table 0366</documentation>
-					<appinfo>
-						<quantity>http://codes.wmo.int/common/quantity-kind/runwayFrictionCoefficient</quantity>
-					</appinfo>
+				</annotation>
+			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeRunwayState</documentation>
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="allRunways" type="boolean"></attribute>
-		<attribute name="cleared" type="boolean"></attribute>
-		<attribute name="estimatedSurfaceFrictionUnreliable" type="boolean"></attribute>
-		<attribute name="snowClosure" type="boolean"></attribute>
+		<attribute name="allRunways" type="boolean">
+			<annotation>
+				<documentation>When true, indicates the reported conditions apply to all runways</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="cleared" type="boolean">
+			<annotation>
+				<documentation>Indicates that reported runway has been cleared of meteorological deposits, such as snow.
+
+ICAO Annex 3 / WMO No. 49-2:
+"CLRD"
+
+Section 4.8.1.5, Table A3-2 "State of the runway"</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="snowClosure" type="boolean">
+			<annotation>
+				<documentation>Indicates whether the aerodrome is closed due to an extreme deposit of snow.  This affects all runways
+&lt;b&gt;
+&lt;/b&gt;WMO 306:
+Section 15.13.6.1</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 	<complexType name="AerodromeRunwayStatePropertyType">
 		<sequence>
@@ -314,15 +386,28 @@ Section 4.3.6.6</documentation>
 			</element>
 			<element name="meanRVROperator" type="iwxxm:RelationalOperatorType" minOccurs="0" maxOccurs="1">
 				<annotation>
-					<documentation>The reported relational operator for the mean RVR. When reported, this operator is reported in conjunction with mean RVR.  
+					<documentation>The reported relational operator for the mean RVR. When reported, this operator is reported in conjunction with mean RVR.
 
-To report a mean RVR of at least 2000 meters, mean RVR is reported as 2000 meters and the operator is reported as "above".
-
-When no operator is reported, mean RVR represents an exact value with identical semantics to other measured quantities</documentation>
+To report a mean RVR of at least 2000 metres, mean RVR is reported as 2000 metres and the operator is reported as "above".  To report a mean RVR of less than 50 metres, mean RVR is reported as 50 metres and the operator is reported as "below".  When no operator is reported, mean RVR represents an exact value with identical semantics to other measured quantities</documentation>
+				</annotation>
+			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeRunwayVisualRange</documentation>
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="pastTendency" type="iwxxm:VisualRangeTendencyType"></attribute>
+		<attribute name="pastTendency" type="iwxxm:VisualRangeTendencyType">
+			<annotation>
+				<documentation>The runway visual range tendency (up, down, none).
+
+If the runway visual range values during the 10-minute period have shown a distinct tendency, such that the mean during the first 5 minutes varies by 100 m or more from the mean during the second 5 minutes of the period, this should be indicated. When the variation of the runway visual range values shows an upward or downward tendency, this should be indicated by "Up" or "Down", respectively. In circumstances when actual fluctuations during the 10-minute period show no distinct tendency, this should be indicated using "No Change?. When indications of tendency are not available, no information should be reported
+
+ICAO Annex 3 / WMO No. 49:
+Table A3-2 Note 9
+Section 4.3.6.6a</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 	<complexType name="AerodromeRunwayVisualRangePropertyType">
 		<sequence>
@@ -370,6 +455,11 @@ WMO 306:
 Table 3700</documentation>
 				</annotation>
 			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeSeaState</documentation>
+				</annotation>
+			</element>
 		</sequence>
 	</complexType>
 	<complexType name="AerodromeSeaStatePropertyType">
@@ -390,8 +480,17 @@ Table 3700</documentation>
 					<documentation>The specific runway(s) affected by wind shear at this aerodrome. No specific runways are reported when all runways are affected by wind shear</documentation>
 				</annotation>
 			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeWindShear</documentation>
+				</annotation>
+			</element>
 		</sequence>
-		<attribute name="allRunways" type="boolean"></attribute>
+		<attribute name="allRunways" type="boolean">
+			<annotation>
+				<documentation>When true, all runways are observed to have wind shear</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 	<complexType name="AerodromeWindShearPropertyType">
 		<sequence>
@@ -420,7 +519,20 @@ When the sky is obscured and the value of the vertical visibility cannot be dete
 					</appinfo>
 				</annotation>
 			</element>
-			<element name="layer" type="iwxxm:CloudLayerPropertyType" minOccurs="0" maxOccurs="4"></element>
+			<element nillable="true" name="layer" minOccurs="0" maxOccurs="4">
+				<complexType>
+					<complexContent>
+						<extension base="iwxxm:CloudLayerPropertyType">
+							<attribute name="nilReason" type="gml:NilReasonType"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeObservedClouds</documentation>
+				</annotation>
+			</element>
 		</sequence>
 	</complexType>
 	<complexType name="AerodromeObservedCloudsPropertyType">
@@ -431,7 +543,7 @@ When the sky is obscured and the value of the vertical visibility cannot be dete
 	</complexType>
 	<element name="AerodromeSurfaceWind" type="iwxxm:AerodromeSurfaceWindType" substitutionGroup="gml:AbstractObject">
 		<annotation>
-			<documentation>An aggregation of surface wind conditions typically reported together at an aerodrome, including wind direction information, wind speed, and wind gusts.  
+			<documentation>An aggregation of surface wind conditions typically reported together at an aerodrome, including wind direction information, wind speed, and wind gusts.
 
 Wind direction is reported according to ICAO Annex 3 / WMO No. 49-2 Section 4.1.5.2b:
 "variations from the mean wind direction during the past 10 minutes is reported as follows, if the total variation is 60 or more:
@@ -467,6 +579,13 @@ Wind speeds shall be provided in either two units of measures: "m/s" or "[kn_i]"
 					</appinfo>
 				</annotation>
 			</element>
+			<element name="meanWindSpeedOperator" type="iwxxm:RelationalOperatorType" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Indication that the mean wind speed is above or below the reported value.  To report a wind speed of at least 49 meters per second, wind speed is reported as 49 meters per second and the operator is reported as "above".
+
+When no operator is reported, wind speed is an exact value with identical semantics to other measured quantities.</documentation>
+				</annotation>
+			</element>
 			<element name="windGustSpeed" type="gml:SpeedType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation>The maximum wind speed observed over the past ten minutes
@@ -478,6 +597,13 @@ Wind gusts shall be provided in either two units of measures: "m/s" or "[kn_i]" 
 					<appinfo>
 						<quantity>http://codes.wmo.int/common/quantity-kind/maximumWindGustSpeed</quantity>
 					</appinfo>
+				</annotation>
+			</element>
+			<element name="windGustSpeedOperator" type="iwxxm:RelationalOperatorType" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Indication that the wind gust speed is above or below the reported value.  To report a wind gust speed of at least 49 meters per second, wind gust speed is reported as 49 meters per second and the operator is reported as "above".
+
+When no operator is reported, wind gust speed is an exact value with identical semantics to other measured quantities.</documentation>
 				</annotation>
 			</element>
 			<element name="extremeClockwiseWindDirection" type="gml:AngleType" minOccurs="0" maxOccurs="1">
@@ -502,8 +628,17 @@ Section 4.1.5.2b</documentation>
 					</appinfo>
 				</annotation>
 			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeSurfaceWind</documentation>
+				</annotation>
+			</element>
 		</sequence>
-		<attribute name="variableDirection" type="boolean"></attribute>
+		<attribute name="variableWindDirection" type="boolean">
+			<annotation>
+				<documentation>When true, indicates that the wind direction is variable.  A wind direction value may still be reported</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 	<complexType name="AerodromeSurfaceWindPropertyType">
 		<sequence>
@@ -513,7 +648,7 @@ Section 4.1.5.2b</documentation>
 	</complexType>
 	<element name="AerodromeHorizontalVisibility" type="iwxxm:AerodromeHorizontalVisibilityType" substitutionGroup="gml:AbstractObject">
 		<annotation>
-			<documentation>An aggregation of horizontal visibility conditions typically reported together at an aerodrome, including the prevailing visibility and minimum visibility.  
+			<documentation>An aggregation of horizontal visibility conditions typically reported together at an aerodrome, including the prevailing visibility and minimum visibility.
 
 Direction of minimum visibility shall be given in degrees from true North. Plane angle unit of measure (uom) is "deg".
 Measured prevailing and minimum horizontal visibility, if present, shall be reported in meters ("m") only.</documentation>
@@ -545,7 +680,7 @@ Section 4.2.4.4b</documentation>
 				<annotation>
 					<documentation>The reported relational operator for the prevailing horizontal visibility.  When reported, this operator is reported in conjunction with prevailing visibility.
 
-To report a prevailing visibility of at least 10000 meters, prevailing visibility is reported as 10000 meters and the operator is reported as "above".  
+To report a prevailing visibility of at least 10000 meters, prevailing visibility is reported as 10000 meters and the operator is reported as "above".
 
 When no operator is reported, prevailing visibility represents an exact value with identical semantics to other measured quantities</documentation>
 				</annotation>
@@ -558,11 +693,9 @@ Measured minimum visibility shall be reported in meters ("m") only.
 
 ICAO Annex 3 / WMO No. 49-2 Section 4.2.4.4a:
 "When the visibility is not the same in different directions and
-a) when the lowest visibility is different from the prevailing visibility, and 
-  1) less than 1 500 m or 
-  2) less than 50 percent of the prevailing visibility and less than 5000 m; the lowest visibility observed should also be reported and,when possible, its general direction in relation to the aerodrome reference point indicated by reference to one of the
-eight points of the compass. If the lowest visibility is observed in more than one direction, then the most
-operationally significant direction should be reported; and
+a) when the lowest visibility is different from the prevailing visibility, and
+  1) less than 1500 m or
+  2) less than 50 percent of the prevailing visibility and less than 5000 m; the lowest visibility observed should also be reported and,when possible, its general direction in relation to the aerodrome reference point indicated by reference to one of the eight points of the compass. If the lowest visibility is observed in more than one direction, then the most operationally significant direction should be reported; and
 b) when the visibility is fluctuating rapidly, and the prevailing visibility cannot be determined, only the lowest visibility
 should be reported, with no indication of direction."</documentation>
 					<appinfo>
@@ -578,6 +711,11 @@ Direction of minimum visibility shall be given in degrees from true North. Plane
 					<appinfo>
 						<quantity>http://codes.wmo.int/common/quantity-kind/aerodromeMinimumVisibilityDirection</quantity>
 					</appinfo>
+				</annotation>
+			</element>
+			<element name="extension" type="anyType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Extension block for optional and/or additional parameters for element AerodromeHorizontalVisibility</documentation>
 				</annotation>
 			</element>
 		</sequence>
@@ -597,11 +735,6 @@ Defined in WMO No. 306 Vol I.1; FM-15 METAR, FM-16 SPECI and FM-51 TAF.
 Also see WMO No. 306 Vol I.2 Part B FM 94 BUFR code-table 0 08 016 'Change qualifier of a trend forecast or an aerodrome forecast'.</documentation>
 		</annotation>
 		<restriction base="string">
-			<enumeration value="NO_SIGNIFICANT_CHANGES">
-				<annotation>
-					<documentation>No significant changes are forecast (NOSIG)</documentation>
-				</annotation>
-			</enumeration>
 			<enumeration value="BECOMING">
 				<annotation>
 					<documentation>When the change is forecast to commence at the beginning of the forecast period and be completed by the end of that period, or when the change is forecast to occur within the forecast period but the time of the change is uncertain (possibly shortly after the beginning of the forecast period, or midway or near the end of that period), the change is indicated by only the change indicator BECMG.</documentation>
@@ -618,7 +751,7 @@ Also see WMO No. 306 Vol I.2 Part B FM 94 BUFR code-table 0 08 016 'Change quali
 		<annotation>
 			<documentation>The tendency of visual range (e.g., upward, downward).  Defined for the purposes of aviation meteorology reporting of the visual range on runways (WMO No. 49-2).
 
-If the [runway] visual range (RVR) values during the 10-minute period preceding the nominal observation time show a distinct upward or downward tendency such that the mean during the first five minutes varies by 100 metres or more from the mean in the second five minutes of the period, an UPWARD [U] or DOWNWARD [D] tendency is recorded. When no distinct change in RVR is observed, NO CHANGE [N] is recorded.
+If the [runway] visual range (RVR) values during the 10-minute period preceding the nominal observation time show a distinct upward or downward tendency such that the mean during the first five minutes varies by 100 metres or more from the mean in the second five minutes of the period, an UPWARD [U] or DOWNWARD [D] tendency is recorded. When no distinct change in RVR is observed, NO CHANGE [N] is recorded. When it is not possible to determine the tendency, MISSING VALUE is recorded.
 
 See WMO No. 306 Vol I.2 FM 94 BUFR code-table 0 20 018 "Tendency of runway visual range".</documentation>
 		</annotation>
@@ -630,12 +763,17 @@ See WMO No. 306 Vol I.2 FM 94 BUFR code-table 0 20 018 "Tendency of runway visua
 			</enumeration>
 			<enumeration value="NO_CHANGE">
 				<annotation>
-					<documentation>No change</documentation>
+					<documentation>No distinct change</documentation>
 				</annotation>
 			</enumeration>
 			<enumeration value="DOWNWARD">
 				<annotation>
 					<documentation>Downward (decreasing) tendency</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="MISSING_VALUE">
+				<annotation>
+					<documentation>Missing value</documentation>
 				</annotation>
 			</enumeration>
 		</restriction>
@@ -730,6 +868,18 @@ See WMO No. 306 Vol I.1 code table 0919 and WMO No. 306 Vol I.2 FM 94 BUFR code 
 			<extension base="gml:ReferenceType"></extension>
 		</complexContent>
 	</complexType>
+	<complexType name="RunwayFrictionCoefficientType">
+		<annotation>
+			<documentation>Extent of runway surface that is contaminated (covered)</documentation>
+			<appinfo>
+				<vocabulary>http://codes.wmo.int/bufr4/codeflag/0-20-089</vocabulary>
+				<extensibility>none</extensibility>
+			</appinfo>
+		</annotation>
+		<complexContent>
+			<extension base="gml:ReferenceType"></extension>
+		</complexContent>
+	</complexType>
 	<complexType name="AerodromePresentWeatherType">
 		<annotation>
 			<documentation>The present weather observed at, or in near vicinity of, an aerodrome.
@@ -738,7 +888,7 @@ Only a specific set of weather phenomenon are reported within aviation meteorolo
 
 This CodeList is specifically defined for aviation purposes as defined in WMO No. 49-2. A superset of definitions are defined in WMO No. 306 Vol I.1 code-table 4678 "Significant weather phenomena".</documentation>
 			<appinfo>
-				<vocabulary>http://codes.wmo.int/49-2/AerodromePresentWeather</vocabulary>
+				<vocabulary>http://codes.wmo.int/49-2/AerodromePresentOrForecastWeather</vocabulary>
 				<extensibility>none</extensibility>
 			</appinfo>
 		</annotation>
