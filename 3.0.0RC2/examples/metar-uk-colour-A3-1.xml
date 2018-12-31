@@ -11,6 +11,7 @@
     xmlns:gml="http://www.opengis.net/gml/3.2"
     xmlns:aixm="http://www.aixm.aero/schema/5.1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ukmoav="http://reference.metoffice.gov.uk/aviation/iwxxm-extensions"
     xsi:schemaLocation="http://icao.int/iwxxm/3.0 http://schemas.wmo.int/iwxxm/3.0.0RC2/iwxxm.xsd"
     gml:id="uuid.510df5de-fefb-4406-bafd-faab35333ec0"
     reportStatus="NORMAL"
@@ -101,6 +102,7 @@
                     </iwxxm:layer>
                 </iwxxm:AerodromeCloud>
             </iwxxm:cloud>
+	    <ukmoav:colourState xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/BLU" />
         </iwxxm:MeteorologicalAerodromeObservation>
     </iwxxm:observation>
 
@@ -132,6 +134,7 @@
             <iwxxm:prevailingVisibility uom="m">10000</iwxxm:prevailingVisibility>
             <iwxxm:prevailingVisibilityOperator>ABOVE</iwxxm:prevailingVisibilityOperator>
             <iwxxm:weather nilReason="http://codes.wmo.int/common/nil/nothingOfOperationalSignificance"/>
+	    <ukmoav:colourStateTrend xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/WHT" />
         </iwxxm:MeteorologicalAerodromeTrendForecast>
     </iwxxm:trendForecast>
 
