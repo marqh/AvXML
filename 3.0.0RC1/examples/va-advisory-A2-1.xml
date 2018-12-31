@@ -88,12 +88,12 @@ NXT ADVISORY:               20080923/0730Z
                             <aixm:lowerLimit uom="FL">250</aixm:lowerLimit>
                             <aixm:lowerLimitReference>STD</aixm:lowerLimitReference>
                             <aixm:horizontalProjection>
-                                <aixm:Surface gml:id="uuid.c81a85cc-61d9-4250-b9bb-fe4e9dcd3f29" srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::3857">
+                                <aixm:Surface gml:id="uuid.c81a85cc-61d9-4250-b9bb-fe4e9dcd3f29" srsName="urn:ogc:def:crs:EPSG::3857">
                                     <gml:patches>
                                         <gml:PolygonPatch>
                                             <gml:exterior>
                                                 <gml:LinearRing>
-                                                    <gml:posList srsName="https://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::4326">54.00 159.50 54.00 161.00 53.00 159.75 54.00 159.50</gml:posList>
+                                                    <gml:posList srsName="urn:ogc:def:crs:EPSG::4326">54.00 159.50 54.00 161.00 53.00 159.75 54.00 159.50</gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
                                         </gml:PolygonPatch>
