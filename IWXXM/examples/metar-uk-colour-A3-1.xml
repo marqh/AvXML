@@ -102,7 +102,9 @@
                     </iwxxm:layer>
                 </iwxxm:AerodromeCloud>
             </iwxxm:cloud>
-	    <ukmoav:colourState xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/BLU" />
+	    <iwxxm:extension>
+	      <ukmoav:colourState xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/BLU" />
+	    </iwxxm:extension>
         </iwxxm:MeteorologicalAerodromeObservation>
     </iwxxm:observation>
 
@@ -134,7 +136,9 @@
             <iwxxm:prevailingVisibility uom="m">10000</iwxxm:prevailingVisibility>
             <iwxxm:prevailingVisibilityOperator>ABOVE</iwxxm:prevailingVisibilityOperator>
             <iwxxm:weather nilReason="http://codes.wmo.int/common/nil/nothingOfOperationalSignificance"/>
-	    <ukmoav:colourStateTrend xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/WHT" />
+	    <iwxxm:extension>
+	      <ukmoav:colourStateTrend xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/WHT" />
+	    </iwxxm:extension>	
         </iwxxm:MeteorologicalAerodromeTrendForecast>
     </iwxxm:trendForecast>
 
