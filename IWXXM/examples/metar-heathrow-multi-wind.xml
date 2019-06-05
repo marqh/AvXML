@@ -26,14 +26,13 @@
                 <aixm:AirportHeliportTimeSlice gml:id="uuid.75c3340c-3679-4e31-8aec-efdabe375d49">
                     <gml:validTime/>
                     <aixm:interpretation>SNAPSHOT</aixm:interpretation>
-                    <aixm:designator>LHR</aixm:designator>
+                    <aixm:designator>EGLL</aixm:designator>
                     <aixm:name>LONDON/HEATHROW</aixm:name>
-                    <aixm:locationIndicatorICAO>LHR</aixm:locationIndicatorICAO>
+                    <aixm:locationIndicatorICAO>EGLL</aixm:locationIndicatorICAO>
                     <aixm:ARP>
                         <aixm:ElevatedPoint gml:id="uuid.dd2c810b-edaa-4ad9-bb65-9ab774d1522e" srsDimension="2" axisLabels="Lat Long" srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
                             <gml:pos>51.48 -0.46</gml:pos>
                             <aixm:elevation uom="M">25</aixm:elevation>
-                            <aixm:verticalDatum>OSGB</aixm:verticalDatum>
                         </aixm:ElevatedPoint>
                     </aixm:ARP>
                 </aixm:AirportHeliportTimeSlice>
@@ -58,8 +57,6 @@
                     <iwxxm:meanWindDirection uom="deg">240</iwxxm:meanWindDirection>
                     <iwxxm:meanWindSpeed uom="m/s">4.0</iwxxm:meanWindSpeed>
                 </iwxxm:AerodromeSurfaceWind>
-            </iwxxm:surfaceWind>
-            <iwxxm:surfaceWind>
                 <iwxxm:AerodromeSurfaceWind variableWindDirection="false">
                     <iwxxm:meanWindDirection uom="deg">230</iwxxm:meanWindDirection>
                     <iwxxm:meanWindSpeed uom="m/s">5.0</iwxxm:meanWindSpeed>
