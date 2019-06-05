@@ -57,6 +57,8 @@
                     <iwxxm:meanWindDirection uom="deg">240</iwxxm:meanWindDirection>
                     <iwxxm:meanWindSpeed uom="m/s">4.0</iwxxm:meanWindSpeed>
                 </iwxxm:AerodromeSurfaceWind>
+            </iwxxm:surfaceWind>
+            <iwxxm:surfaceWind>
                 <iwxxm:AerodromeSurfaceWind variableWindDirection="false">
                     <iwxxm:meanWindDirection uom="deg">230</iwxxm:meanWindDirection>
                     <iwxxm:meanWindSpeed uom="m/s">5.0</iwxxm:meanWindSpeed>
