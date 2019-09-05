@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema elementFormDefault="qualified" targetNamespace="http://reference.metoffice.gov.uk/aviation/iwxxm-extensions" version="1.0" 
+        xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:ukmoav="http://reference.metoffice.gov.uk/aviation/iwxxm-extensions">
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+
+<element name="colourState" type="ukmoav:colourStateType">
+
+
+</element>
+
+<element name="colourStateTrend" type="ukmoav:colourStateType">
+
+</element>
+
+
+<complexType name="colourStateType">
+  <annotation>
+    <appinfo>
+      <vocabulary>http://reference.metoffice.gov.uk/aviation/aerodromeColourStates</vocabulary>
+      <extensibility>none</extensibility>
+    </appinfo>
+  </annotation>
+  <complexContent>
+    <extension base="gml:ReferenceType"/>
+  </complexContent>
+</complexType>
+
+</schema>

@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    An example of a METAR.
-    
-      METAR YUDO 221630Z 24004MPS 0600 R12/1000U DZ FG SCT010 OVC020 17/16 Q1018
-      BECMG TL1700 0800 FG BECMG AT1800 9999 NSW
--->
 <iwxxm:METAR 
     xmlns:iwxxm="http://icao.int/iwxxm/3.0" 
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -12,7 +6,7 @@
     xmlns:aixm="http://www.aixm.aero/schema/5.1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ukmoav="http://reference.metoffice.gov.uk/aviation/iwxxm-extensions"
-    xsi:schemaLocation="http://icao.int/iwxxm/3.0 http://schemas.wmo.int/iwxxm/3.0.0/iwxxm.xsd"
+    xsi:schemaLocation="http://icao.int/iwxxm/3.0 http://schemas.wmo.int/iwxxm/3.0.0/iwxxm.xsd http://reference.metoffice.gov.uk/aviation/iwxxm-extensions http://reference.metoffice.gov.uk/aviation/iwxxm-extensions/ukColourStateExtension.xsd"
     gml:id="uuid.510df5de-fefb-4406-bafd-faab35333ec0"
     reportStatus="NORMAL"
     permissibleUsage="OPERATIONAL"
@@ -103,7 +97,7 @@
                 </iwxxm:AerodromeCloud>
             </iwxxm:cloud>
 	    <iwxxm:extension>
-	      <ukmoav:colourState xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/BLU" />
+	      <ukmoav:colourState xlink:href="http://reference.metoffice.gov.uk/aviation/aerodromeColourStates/GRN" />
 	    </iwxxm:extension>
         </iwxxm:MeteorologicalAerodromeObservation>
     </iwxxm:observation>
@@ -137,7 +131,7 @@
             <iwxxm:prevailingVisibilityOperator>ABOVE</iwxxm:prevailingVisibilityOperator>
             <iwxxm:weather nilReason="http://codes.wmo.int/common/nil/nothingOfOperationalSignificance"/>
 	    <iwxxm:extension>
-	      <ukmoav:colourStateTrend xlink:href="http://reference.metoffice.gov.uk/aviation/colourStates/WHT" />
+	      <ukmoav:colourStateTrend xlink:href="http://reference.metoffice.gov.uk/aviation/aerodromeColourStates/WHT" />
 	    </iwxxm:extension>	
         </iwxxm:MeteorologicalAerodromeTrendForecast>
     </iwxxm:trendForecast>

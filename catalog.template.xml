@@ -21,5 +21,7 @@
 
   <!-- W3C -->
   <rewriteSystem systemIdStartString="http://www.w3.org" rewritePrefix="externalSchema/org/w3c"/>
-  
+
+  <!-- MO -->
+  <rewriteSystem systemIdStartString="http://reference.metoffice.gov.uk/aviation/iwxxm-extensions" rewritePrefix="IWXXM/ukExtentions"/>
 </catalog>
