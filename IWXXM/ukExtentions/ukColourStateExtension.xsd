@@ -4,20 +4,10 @@
 	xmlns:ukmoav="http://reference.metoffice.gov.uk/aviation/iwxxm-extensions">
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
 
-<element name="colourState" type="ukmoav:colourStateType">
-
-
-</element>
-
-<element name="colourStateTrend" type="ukmoav:colourStateType">
-
-</element>
-
-
 <complexType name="colourStateType">
   <annotation>
     <appinfo>
-      <vocabulary>http://reference.metoffice.gov.uk/aviation/aerodromeColourStates</vocabulary>
+      <vocabulary>http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates</vocabulary>
       <extensibility>none</extensibility>
     </appinfo>
   </annotation>
@@ -25,5 +15,20 @@
     <extension base="gml:ReferenceType"/>
   </complexContent>
 </complexType>
+
+
+<complexType name="UKAerodromeColourStateExtension">
+  <sequence>
+    <element maxOccurs="2" minOccurs="1" name="UKColourState" type="ukmoav:colourStateType">
+    </element>
+    </sequence>
+</complexType>
+
+<element name="UKAerodromeColourState" type="ukmoav:UKAerodromeColourStateExtension">
+</element>
+
+<element name="UKAerodromeColourStateTrend" type="ukmoav:UKAerodromeColourStateExtension">
+</element>
+
 
 </schema>

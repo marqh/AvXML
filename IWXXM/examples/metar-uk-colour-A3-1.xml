@@ -97,7 +97,11 @@
                 </iwxxm:AerodromeCloud>
             </iwxxm:cloud>
 	    <iwxxm:extension>
-	      <ukmoav:colourState xlink:href="http://reference.metoffice.gov.uk/aviation/aerodromeColourStates/GRN" />
+	      <ukmoav:UKAerodromeColourState>
+		<ukmoav:UKColourState xlink:href="http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates/RED" />
+		<ukmoav:UKColourState xlink:href="http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates/BLACK" />
+	      </ukmoav:UKAerodromeColourState>
+		  
 	    </iwxxm:extension>
         </iwxxm:MeteorologicalAerodromeObservation>
     </iwxxm:observation>
@@ -114,6 +118,11 @@
             <iwxxm:timeIndicator>UNTIL</iwxxm:timeIndicator>
             <iwxxm:prevailingVisibility uom="m">800</iwxxm:prevailingVisibility>
             <iwxxm:weather xlink:href="http://codes.wmo.int/306/4678/FG"/>
+	    <iwxxm:extension>
+	      <ukmoav:UKAerodromeColourStateTrend>
+	      <ukmoav:UKColourState xlink:href="http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates/AMB"/>
+	      </ukmoav:UKAerodromeColourStateTrend>
+	    </iwxxm:extension>	
         </iwxxm:MeteorologicalAerodromeTrendForecast>
     </iwxxm:trendForecast>
 
@@ -131,7 +140,9 @@
             <iwxxm:prevailingVisibilityOperator>ABOVE</iwxxm:prevailingVisibilityOperator>
             <iwxxm:weather nilReason="http://codes.wmo.int/common/nil/nothingOfOperationalSignificance"/>
 	    <iwxxm:extension>
-	      <ukmoav:colourStateTrend xlink:href="http://reference.metoffice.gov.uk/aviation/aerodromeColourStates/WHT" />
+	      <ukmoav:UKAerodromeColourStateTrend>
+	      <ukmoav:UKColourState xlink:href="http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates/BLU"/>
+	      </ukmoav:UKAerodromeColourStateTrend>
 	    </iwxxm:extension>	
         </iwxxm:MeteorologicalAerodromeTrendForecast>
     </iwxxm:trendForecast>
