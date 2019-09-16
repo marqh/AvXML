@@ -112,7 +112,7 @@
             <iwxxm:phenomenonTime>
                 <gml:TimePeriod gml:id="uuid.819b0c7a-133f-4029-b1d9-451be77e3c5f">
                     <gml:beginPosition>2012-08-22T16:30:00Z</gml:beginPosition>
-                    <gml:endPosition>2012-08-22T17:00:00Z</gml:endPosition>
+                    <gml:endPosition>2012-08-22T17:30:00Z</gml:endPosition>
                 </gml:TimePeriod>
             </iwxxm:phenomenonTime>
             <iwxxm:timeIndicator>UNTIL</iwxxm:timeIndicator>
@@ -121,27 +121,6 @@
 	    <iwxxm:extension>
 	      <ukmoav:UKAerodromeColourStateTrend>
 	      <ukmoav:UKColourState xlink:href="http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates/AMB"/>
-	      </ukmoav:UKAerodromeColourStateTrend>
-	    </iwxxm:extension>	
-        </iwxxm:MeteorologicalAerodromeTrendForecast>
-    </iwxxm:trendForecast>
-
-    <iwxxm:trendForecast>
-        <iwxxm:MeteorologicalAerodromeTrendForecast gml:id="uuid.be66f283-6aae-4a84-bc84-3831c9b2e7ef" changeIndicator="BECOMING">
-            <!-- time at which the forecast conditions actually occur -->
-            <iwxxm:phenomenonTime>
-                <gml:TimePeriod gml:id="uuid.d4d26581-aea9-4caf-abb3-0304faac191b">
-                    <gml:beginPosition>2012-08-22T18:00:00Z</gml:beginPosition>
-                    <gml:endPosition>2012-08-22T18:00:00Z</gml:endPosition>
-                </gml:TimePeriod>
-            </iwxxm:phenomenonTime>
-            <iwxxm:timeIndicator>AT</iwxxm:timeIndicator>
-            <iwxxm:prevailingVisibility uom="m">10000</iwxxm:prevailingVisibility>
-            <iwxxm:prevailingVisibilityOperator>ABOVE</iwxxm:prevailingVisibilityOperator>
-            <iwxxm:weather nilReason="http://codes.wmo.int/common/nil/nothingOfOperationalSignificance"/>
-	    <iwxxm:extension>
-	      <ukmoav:UKAerodromeColourStateTrend>
-	      <ukmoav:UKColourState xlink:href="http://reference.metoffice.gov.uk/aviation/UKAerodromeColourStates/BLU"/>
 	      </ukmoav:UKAerodromeColourStateTrend>
 	    </iwxxm:extension>	
         </iwxxm:MeteorologicalAerodromeTrendForecast>
