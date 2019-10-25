@@ -86,7 +86,7 @@ def download_codelist(codeListPath, outputDir):
 
 def parseLocalCodeListFile(codeListHttpPath):
     filename = codeListHttpPath.replace('http://', '').replace('/','-')  # remove slashes and 'http://'
-    return '%s.rdf' % filename
+    return '.{}.rdf'.format(filename)
 
 if __name__ == '__main__':
     main()
